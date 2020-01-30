@@ -2,8 +2,13 @@
   <div class="container mt-5">
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <cardHome/>
-    
+    <cardHome
+    v-for="que in getQue"
+    :key="que._id"
+    :que="que"
+    />
+    <!-- <h1>question part</h1> -->
+    <!-- {{getQue}} -->
   </div>
 </template>
 
@@ -16,6 +21,11 @@ export default {
   components: {
     HelloWorld,
     cardHome
+  },
+  computed:{
+    getQue(){
+      return this.$store.state.allQuestions
+    }
   }
 }
 </script>

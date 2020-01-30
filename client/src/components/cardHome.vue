@@ -1,17 +1,18 @@
 <template>
   <div class="card text-left mt-5">
   <div class="card-header">
-    Question
+    Question 
   </div>
-  <div class="card-body row" @click.prevent="seeDetail(12)">
-    <!-- <div class="col-1 icon">
+  <div class="card-body row" @click.prevent="seeDetail(que._id)">
+    <div class="col-1 icon">
     <img src="@/assets/up.png" alt="" @click.prevent="upVote">
     <img src="@/assets/down.png" alt="" @click.prevent="downVote">
-    </div> -->
+    </div>
     <div class="col-11">
+      <!-- {{ this.$route.params }} -->
       <blockquote class="blockquote mb-0">
-      <p>if i could wait another day, will that mean much to see if you're willing to stay?</p>
-      <footer class="blockquote-footer">17-year-old me a  <cite title="Source Title">Sucker for love</cite></footer>
+      <p>{{que.title}}</p>
+      <footer class="blockquote-footer">{{que.createdAt}} by<cite title="Source Title"> {{que.userId.name}}</cite></footer>
     </blockquote>
     </div>
   </div>
@@ -39,8 +40,13 @@ export default {
     seeDetail(id){
       this.$router.push(`/question/${id}`)
       // this.$router.push(`/question/`)
-    }
-  }
+    },
+  },
+  props:{
+    que:Object
+  },
+   
+
 }
 </script>
 

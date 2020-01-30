@@ -1,18 +1,88 @@
 <template>
-  <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, cumque et! Aut et voluptatibus vero nihil labore enim, veniam commodi corrupti laborum, atque rem rerum, ad ut. Illum, odit at! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, nobis repellat! Ullam porro, esse voluptate repudiandae corrupti minima excepturi quaerat commodi consectetur! Repudiandae, quod! Reprehenderit earum laboriosam molestias vel vitae? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores perferendis, placeat incidunt, vitae magni magnam beatae sint eaque voluptates debitis quis cum quo fuga officiis exercitationem ipsam a minima tempore.</p>
+  <div class="mt-5 mb-4">
+    <h4>{{answer.title}}</h4>
+    <hr />
+    <!-- {{answer}} -->
+    <div class="qBody row">
+      <div class="col-1 icon text-center">
+        <img src="@/assets/up.png" alt @click.prevent="upVote(answer._id, 1)" />
+        <h4 class="mt-2">{{countVotes}}</h4>
+        <img src="@/assets/down.png" alt @click.prevent="upVote(answer._id, -1)" />
+      </div>
+      <div class="col-11">
+          <p><span v-html="answer.desc"></span> </p>
+
+        <!-- <h6>{{answer.desc}}</h6> -->
+      </div>
+    </div>
+
     <div>
-      <span>answer at Time by Name</span>
+      <hr/>
+      <span>answered at {{answer.createdAt}} by {{answer.userId.name}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import axios from '../api/axiosInstance'
 export default {
-  name: 'answerCard'
-}
+  name: "answerCard",
+  props: {
+    answer: {}
+  },
+  methods: {
+    upVote(id, ct) {
+
+       axios({
+        method: "post",
+        url: `/answer/votes/${id}`,
+        data: {
+          count: ct,
+        },
+        headers:{
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(({ data }) => {
+          console.log(data);
+          this.getReactive()
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    downVote() {
+      console.log("downVote");
+    },
+    seeDetail(id) {
+      this.$router.push(`/question/${id}`);
+      // this.$router.push(`/question/`)
+    },
+    getReactive(){
+      this.$store.dispatch("getCurrentQue", this.$route.params.id);
+
+      this.$store.dispatch("getCurrentAnswer", this.$route.params.id);
+    }
+  },
+  computed: {
+    countVotes() {
+      if (this.answer.votes) {
+        let sum =0
+        for(let i = 0; i<=this.answer.votes.length-1; i++){
+          sum += this.answer.votes[i].count
+        }
+        return sum
+      } else {
+        return 0;
+      }
+    }
+  }
+};
 </script>
 
-<style>
-
+<style scoped>
+.icon img {
+  max-height: 2rem;
+}
 </style>

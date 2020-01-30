@@ -15,6 +15,10 @@ export default {
   name: 'home',
   components: {
     navbarHome
+  },
+   created: function(){
+     this.$store.dispatch('getQuestions')
+
   }
 }
 </script>

@@ -4,7 +4,7 @@ const User = require('../models/user')
 module.exports = 
     function (req, res, next) {
 
-        // console.log(req.headers,'====')
+        console.log(req.headers,'====')
         const { token } = req.headers;
         if (token) {
             const authenticated = jwt.verify(token, process.env.SECRET);
@@ -15,6 +15,7 @@ module.exports =
                 User.findOne({ _id: authenticated })
                 .then(data =>{
                     if(data){
+                        // req.currentUserId = data._id
                         next();
                     }
                 })

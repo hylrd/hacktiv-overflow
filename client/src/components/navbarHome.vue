@@ -8,24 +8,51 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#" @click.prevent="toHome">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#" @click.prevent="toQue">Questions</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-primary" v-if="checkLogin !== true" @click.prevent="signIn">Sign in</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-danger" v-if="checkLogin">Sign Out</button>
+            </li>
+        </ul>
+    </div>
 </nav>
 </template>
 
 <script>
 name: 'navbarHome'
 export default {
-
+computed:{
+  checkLogin(){
+    if(localStorage.getItem('token')){
+      return true
+    }else{
+      return false
+    }
+  }
+},
+methods:{
+  signIn(){
+    console.log('masuk sini');
+    
+    this.$router.push('/loginPage')
+  },
+  toHome(){
+    this.$router.push('/')
+  },
+  toQue(){
+    this.$router.push('/myQuestions')
+  }
+}
 }
 </script>
 

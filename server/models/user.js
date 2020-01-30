@@ -16,10 +16,6 @@ var userSchema = new Schema({
     type: String,
     minlength: [6, 'Password minimum length is 8'],
     required: 'password is required',
-  },
-  admin: { 
-    type : Boolean, 
-    default: false
   }
 });
 

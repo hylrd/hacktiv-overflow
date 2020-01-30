@@ -1,23 +1,23 @@
-const Question = require('../models/question')
+const Answer = require('../models/answer')
 
 class queController{
 
   static add(req, res){
-    console.log('masuuukk addd');
+    // console.log('sampe kesini controller add answer');
     
     let obj={
       title: req.body.title,
       desc: req.body.desc,
-      userId: req.currentUserId
-    
+      userId: req.currentUserId,
+      queId: req.params.id  
+      // votes: {
+      //   count: req.body.count,
+      //   userId: req.currentUserId
+      // }
     }
 
-    console.log(obj);
-    
-    Question.create(obj)
+    Answer.create(obj)
     .then(data =>{
-      console.log(data);
-      
       res.status(200).json(data)
     })
     .catch(err =>{
@@ -26,39 +26,37 @@ class queController{
   }
 
   static addVotes(req, res){
-      console.log('data smpe==========');
-      
+    // params here is answerId
       let obj ={
         count: req.body.count,
         userId: req.currentUserId
       }
 
       let ct = req.body.count
-      //findOne question with userId
+      //findOne Answer with userId
       // if found{neutralized(whether the value is the same)}
       // else {add new data}
 
-      Question.findOne(
+      Answer.findOne(
       { _id:req.params.id, 'votes.userId': req.currentUserId})
       .then(data =>{
-        
+
         if (data){
-          console.log(data, 'data doaaang===========');
 
           const indexOfUser = data.votes.findIndex(el => el.userId.toString() == req.currentUserId)
           console.log(indexOfUser, 'ini indexnyaa');
-          
-          if(data.votes[indexOfUser].count == ct){
 
-            console.log('dapet', data, 'masuk ke if');
-            return Question.findByIdAndUpdate(
+          if(data.votes[indexOfUser].count == ct){
+            // ini kalo sama
+            console.log('dapet', data);
+            return Answer.findByIdAndUpdate(
               req.params.id,
               { $pull: { 'votes': { userId: req.currentUserId } } })
               // neautralize data
           }else{
             // kalo beda
-            console.log('kemari dong')
-            return Question.updateOne(
+            
+            return Answer.updateOne(
               { _id:req.params.id, 'votes.userId': req.currentUserId}, {
                 '$set': {
                   'votes.$.count': ct
@@ -70,14 +68,14 @@ class queController{
         }else{
           // add new data
           console.log('gadapet');
-          return Question.update(
+          return Answer.update(
             { _id: req.params.id },
             { $push: { votes: obj } })
           
         }
       })
       .then(databaru =>{
-        // console.log(databaru, 'data baru');
+        console.log(databaru, 'data baru');
         
         res.status(201).json(databaru)
       })
@@ -87,19 +85,8 @@ class queController{
 
   }
 
-  static remove(req, res){
-
-    Question.deleteOne({ _id: req.params.id})
-    .then(databaru =>{
-      res.status(200).json(databaru)
-    })
-    .catch(err =>{
-      res.status(500).json(err)
-    })
-  }
-
   static update(req, res){
-    Question.updateOne({ _id: req.params.id},{
+    Answer.updateOne({ _id: req.params.id},{
       title: req.body.title,
       desc: req.body.desc,
     })
@@ -111,42 +98,14 @@ class queController{
     })
   }
 
-  static getAll(req, res){
-    Question.find().populate('userId')
-    .then(data =>{
-      console.log(data);
-      
-      res.status(200).json(data)
-    })
-    .catch(err =>{
-      res.status(500).json(err)
-    })
-  }
+  static getAnswer(req, res){
+    // get all answer for one specific qestion
 
-  static getOne(req, res){
-    Question.findOne({
-      _id: req.params.id
+    Answer.find({
+      queId: req.params.id
     }).populate('userId')
-    .then(data =>{
-      console.log(data);
-      
-      res.status(200).json(data)
-    })
-    .catch(err =>{
-      res.status(500).json(err)
-    })
-  }
-
-  static getUserQue(req, res){
-    console.log(req.currentUserId);
-    
-    Question.find({
-      userId: req.currentUserId
-    })
-    .then(data =>{
-      console.log(data);
-      
-      res.status(200).json(data)
+    .then(databaru =>{
+      res.status(200).json(databaru)
     })
     .catch(err =>{
       res.status(500).json(err)
