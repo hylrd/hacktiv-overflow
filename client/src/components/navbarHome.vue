@@ -13,6 +13,9 @@
       <li class="nav-item">
           <a class="nav-link" href="#" @click.prevent="toQue">Questions</a>
       </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#" @click.prevent="toanswer">Answers</a>
+      </li>
     </ul>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -51,6 +54,9 @@ methods:{
   },
   toQue(){
     this.$router.push('/myQuestions')
+  },
+  toanswer(){
+    this.$router.push('/myAnswers')
   }
 }
 }

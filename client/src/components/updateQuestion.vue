@@ -1,6 +1,6 @@
 <template>
   <div>
-          <form>
+<form>
   <div class="form-group">
     <label for="exampleInputEmail1">title</label>
     <input  class="form-control" aria-describedby="emailHelp" v-model="que.title">

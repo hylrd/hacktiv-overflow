@@ -27,7 +27,7 @@
 
     <h2>{{countAnswer}} Answers</h2>
     <hr />
-
+    <postAnswer/>
     <answerCard v-for="answer in getAnswers" :key="answer._id" :answer="answer" />
 
     <router-view />
@@ -37,6 +37,7 @@
 <script>
 import answerCard from "../components/answerCard";
 import axios from '../api/axiosInstance'
+import postAnswer from '../components/postAnswer'
 export default {
   name: "questionDetail",
   data() {
@@ -123,7 +124,8 @@ export default {
     }
   },
   components: {
-    answerCard
+    answerCard,
+    postAnswer
   },
   created: function() {
     // console.log(this.$route.params);

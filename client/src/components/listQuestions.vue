@@ -19,11 +19,11 @@
    <div class="card-footer text-muted row" style="">
     <!-- <span class="badge badge-pill badge-info">info</span> -->
    <button class="btn btn-danger mr-2" @click.prevent="deleteOne(que._id)">Delete</button>
-    <button class="btn btn-warning mr-2" v-if="onUpdate == false" @click.prevent="updateQue(que._id)">Update</button>
-     <button class="btn btn-warning mr-2" v-if="onUpdate" @click.prevent="updateQue(que._id)">close</button>
+    <button class="btn btn-warning mr-2">Update</button>
+     <!-- <button class="btn btn-warning mr-2" v-if="onUpdate" @click.prevent="updateQue(que._id)">close</button> -->
     
   </div>
-    <updateQuestion v-if="onUpdate" :que="que"/>
+    <!-- <updateQuestion v-if="onUpdate" :que="que"/> -->
 
   
 </div>
