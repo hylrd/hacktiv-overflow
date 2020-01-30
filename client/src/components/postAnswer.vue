@@ -63,14 +63,19 @@ data () {
         .then(({ data }) => {
           this.title = '',
           this.desc = '',
-        this.$store.dispatch('getMyQuestions')
+          this.getReactive()
          
         })
         .catch(err => {
          
           console.log(err);
         });
-  } 
+  },
+  getReactive(){
+      this.$store.dispatch("getCurrentQue", this.$route.params.id);
+
+      this.$store.dispatch("getCurrentAnswer", this.$route.params.id);
+    }
 }
 }
 </script>
