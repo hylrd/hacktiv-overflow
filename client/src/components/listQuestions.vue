@@ -61,11 +61,11 @@ data(){
       }
     })
       .then(({ data }) => {
-        // console.log('sampe siniii', data);
+        console.log('sampe siniii', data);
         this.$store.dispatch('getMyQuestions')
       })
       .catch(err => {
-        
+        res.send(err)
         console.log(err);
       });
     },
