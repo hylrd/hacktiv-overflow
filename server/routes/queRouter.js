@@ -8,7 +8,7 @@ router.get('/user', authenticated, queController.getUserQue)
 router.get('/:id', queController.getOne)
 router.post('/', authenticated, queController.add)
 router.post('/votes/:id', authenticated, queController.addVotes)
-router.delete('/:id', authorize, authenticated, queController.remove)
+router.delete('/:id', authenticated, authorize, queController.remove)
 router.put('/:id', authenticated, queController.update)
 
 

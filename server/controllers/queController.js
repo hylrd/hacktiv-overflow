@@ -92,6 +92,8 @@ class queController{
     Question.deleteOne({ _id: req.params.id})
     .then(databaru =>{
       res.status(200).json(databaru)
+      console.log('kedelete');
+      
     })
     .catch(err =>{
       res.status(500).json(err)
