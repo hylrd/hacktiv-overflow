@@ -10,7 +10,8 @@ export default new Vuex.Store({
     currentQue:{},
     currentAnswer:[],
     myQuestions:[],
-    onUpdate: false
+    onUpdate: false,
+    myAnswers:[]
   },
   mutations: {
     setQuestions(state, payload){
@@ -32,12 +33,17 @@ export default new Vuex.Store({
       state.myQuestions = payload
     },
     setonUpdate(state, payload){
-      if(state.onUpdate == true){
-        state.onUpdate = false
-      }else{
-        state.onUpdate = true
-      }
+      state.onUpdate = payload
+      console.log('masuk', state.onUpdate);
+      // if(state.onUpdate === true){
+      //   state.onUpdate = false
+      // }else{
+      //   state.onUpdate = true
+      // }
       // state.onUpdate = payload
+    },
+    setMyanswers(state, payload){
+      state.myAnswers = payload
     }
   },
   actions: {
@@ -107,6 +113,24 @@ export default new Vuex.Store({
           // console.log('sampe siniii', data);
           
          context.commit('setMyquestions', data)
+        })
+        .catch(err => {
+         
+          console.log(err);
+        });
+    },
+    getMyQuestions(context){
+      axios({
+        method: "get",
+        url: `/myAnswer/`,
+        headers:{
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log('sampe siniii', data);
+          
+         context.commit('setMyanswers', data)
         })
         .catch(err => {
          

@@ -19,12 +19,13 @@
    <div class="card-footer text-muted row" style="">
     <!-- <span class="badge badge-pill badge-info">info</span> -->
    <button class="btn btn-danger mr-2" @click.prevent="deleteOne(que._id)">Delete</button>
-    <button class="btn btn-warning mr-2">Update</button>
+    <button class="btn btn-warning mr-2" @click.prevent="updateQue(que._id)">Update</button>
      <!-- <button class="btn btn-warning mr-2" v-if="onUpdate" @click.prevent="updateQue(que._id)">close</button> -->
     
   </div>
     <!-- <updateQuestion v-if="onUpdate" :que="que"/> -->
 
+  <router-view :que="que"/>
   
 </div>
 </template>
@@ -69,13 +70,13 @@ data(){
       });
     },
     updateQue(id){
-      this.$store.commit('setonUpdate')
+      this.$router.push(`/updateQuestion/${id}`)
       // if(this.updateque == true){
       //   this.updateque = false
       // }else{
       //   this.updateque = true
       // }
-      console.log(this.updateque);
+      // console.log(this.updateque);
       
     //   axios({
     //   method: "put",

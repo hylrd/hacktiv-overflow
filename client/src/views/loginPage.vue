@@ -61,6 +61,9 @@ export default {
         .then(({ data }) => {
           if (data.token) {
             localStorage.setItem("token", data.token);
+            this.$store.commit('setonUpdate', true)
+            
+
             console.log(data);
             this.email = "";
             this.password = "";

@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT 
 const router = require('./routes')
+const cron = require("node-cron");
 // const errorHandler = require('./middlewares/errorHandler')
 // app.use('/', errorHandler)
 
@@ -13,6 +14,14 @@ app.use(express.urlencoded({extended: false}))
 var cors = require('cors')
 app.use(cors())
 
+cron.schedule("* * 21 * *", function() {
+  console.log("---------------------");
+  console.log("Running Cron Job");
+  fs.unlink("./error.log", err => {
+    if (err) throw err;
+    console.log("Error file succesfully deleted");
+  });
+});
 
 const db = require('./config/db')
 db.mongoosedb()

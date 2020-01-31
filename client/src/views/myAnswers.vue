@@ -1,7 +1,7 @@
 <template>
  <div class="container">
    <h1>My Answers</h1>
-   <!-- {{myQue}} -->
+   {{myAnswers}}
    <!-- <addQuestions/>
    <listQuestions
    v-for="que in myQue"
@@ -22,8 +22,8 @@ import listQuestions from '../components/listQuestions'
 export default {
 name: 'myAnswers',
 computed:{
-    myQue() {
-      return this.$store.state.myQuestions;
+    myAnswers() {
+      return this.$store.state.myAnswers;
     },
 },
 components:{

@@ -17,7 +17,12 @@ export default {
     navbarHome
   },
    created: function(){
-     this.$store.dispatch('getQuestions')
+     if(localStorage.getItem('token')){
+       this.$store.commit('setonUpdate', true)
+     }
+    this.$store.dispatch('getMyQuestions')
+
+    this.$store.dispatch('getQuestions')
 
   }
 }
