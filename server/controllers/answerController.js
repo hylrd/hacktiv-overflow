@@ -112,6 +112,38 @@ class queController{
     })
   }
 
+  static getMy(req, res){
+    console.log('masuk ke get my');
+    
+    Answer.find({
+      userId: req.currentUserId
+    }).populate('queId')
+    .then(data =>{
+      console.log(data);
+      
+      res.status(200).json(data)
+    })
+    .catch(err =>{
+      res.status(500).json(err)
+    })
+  }
+
+  static getOneAnswer(req, res){
+    console.log('masuk ke get my', req.params.id);
+    
+    Answer.findOne({
+      _id: req.params.id
+    })
+    .then(data =>{
+      console.log(data);
+      
+      res.status(200).json(data)
+    })
+    .catch(err =>{
+      res.status(500).json(err)
+    })
+  }
+
 }
 
 module.exports = queController

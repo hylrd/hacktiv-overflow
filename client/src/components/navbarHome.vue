@@ -11,20 +11,20 @@
         <a class="nav-link" href="#" @click.prevent="toHome">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="#" @click.prevent="toQue">Questions</a>
+          <a class="nav-link" href="#" @click.prevent="toQue" v-if="checkLogin">Questions</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="#" @click.prevent="toanswer">Answers</a>
+          <a class="nav-link" href="#" @click.prevent="toanswer" v-if="checkLogin">Answers</a>
       </li>
     </ul>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <button class="btn btn-primary" v-if="checkLogin !== true" @click.prevent="signIn">Sign in</button>
+                <button class="btn btn-primary" v-if="!checkLogin" @click.prevent="signIn">Sign in</button>
             </li>
             <li class="nav-item">
-                <button class="btn btn-danger" v-if="checkLogin">Sign Out</button>
+                <button class="btn btn-danger" @click.prevent="signOut" v-if="checkLogin">Sign Out</button>
             </li>
         </ul>
     </div>
@@ -36,18 +36,21 @@ name: 'navbarHome'
 export default {
 computed:{
   checkLogin(){
-    if(localStorage.getItem('token')){
-      return true
-    }else{
-      return false
-    }
+    console.log(this.$store.state.onUpdate);
+    
+   return this.$store.state.onUpdate
   }
 },
 methods:{
   signIn(){
     console.log('masuk sini');
-    
+
     this.$router.push('/loginPage')
+  },
+    signOut(){
+    localStorage.removeItem('token')
+    this.$store.commit('setonUpdate', false)
+    this.$router.push('/')
   },
   toHome(){
     this.$router.push('/')
@@ -58,7 +61,15 @@ methods:{
   toanswer(){
     this.$router.push('/myAnswers')
   }
-}
+},
+  // created: function(){
+  //    if(localStorage.getItem('token')){
+      
+  //   }else{
+  //     return false
+  //   }
+
+  // }
 }
 </script>
 
