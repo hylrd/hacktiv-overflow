@@ -43,6 +43,8 @@ export default new Vuex.Store({
       // state.onUpdate = payload
     },
     setMyanswers(state, payload){
+      console.log('sampe mutation');
+      
       state.myAnswers = payload
     }
   },
@@ -119,7 +121,7 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    getMyQuestions(context){
+    getMyAnswer(context){
       axios({
         method: "get",
         url: `answer/myAnswer/`,
@@ -128,7 +130,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          // console.log('sampe siniii', data);
+          console.log('sampe siniii', data);
           
          context.commit('setMyanswers', data)
         })

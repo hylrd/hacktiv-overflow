@@ -29,7 +29,7 @@ components:{
   answerItem
 },
  created: function(){
-     this.$store.dispatch('getMyQuestions')
+     this.$store.dispatch('getMyAnswer')
 
   }
 }
