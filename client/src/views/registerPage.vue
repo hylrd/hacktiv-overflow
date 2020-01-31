@@ -75,6 +75,8 @@ export default {
           this.email = ""
           this.password = ""
           localStorage.setItem('token', data.token)
+          this.$store.commit('setonUpdate', true)
+
           this.$router.push('/')
 
         })
