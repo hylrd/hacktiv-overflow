@@ -122,7 +122,7 @@ export default new Vuex.Store({
     getMyQuestions(context){
       axios({
         method: "get",
-        url: `/myAnswer/`,
+        url: `answer/myAnswer/`,
         headers:{
           token: localStorage.getItem('token')
         }

@@ -71,32 +71,7 @@ data(){
     },
     updateQue(id){
       this.$router.push(`/updateQuestion/${id}`)
-      // if(this.updateque == true){
-      //   this.updateque = false
-      // }else{
-      //   this.updateque = true
-      // }
-      // console.log(this.updateque);
-      
-    //   axios({
-    //   method: "put",
-    //   url: `/${id}`,
-    //   data:{
-    //       title: this.que.title,
-    //       desc: this.que.desc
-    //     },
-    //   headers:{
-    //     token: localStorage.getItem('token')
-    //   }
-    // })
-    //   .then(({ data }) => {
-    //     // console.log('sampe siniii', data);
-    //     this.$store.dispatch('getMyQuestions')
-    //   })
-    //   .catch(err => {
-        
-    //     console.log(err);
-    //   });
+     
     }
   }
 }
