@@ -6,10 +6,12 @@ module.exports =
         let pk = req.params.id
         Question.findById(pk)
         .then(res =>{
-            console.log(res)
+            console.log(res.userId)
             console.log(req.currentUserId);
             
-            if (req.currentUserid._id == res.userId) {
+            if (req.currentUserId == res.userId) {
+                console.log('masuk');
+                
                 next()
             } else {
                 res.status(400).json({
